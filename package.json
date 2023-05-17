@@ -1,0 +1,21 @@
+{
+  "name": "qa-practice-web-cypress-basics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:open": "npx cypress open",
+    "test-chrome": "npx cypress run --browser chrome --headed",
+    "test-firefox": "npx cypress run --browser firefox --headed",
+    "cy-chrome-headless": "npx cypress run --browser chrome"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.0",
+    "cypress": "^12.12.0",
+    "node": "^20.1.0",
+    "npx": "^10.2.2"
+  }
+}
