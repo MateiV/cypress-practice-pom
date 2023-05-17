@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 import { faker } from "@faker-js/faker";
+import LeftSideMenuPage from "../pages/LeftSideMenuPage";
+import RegisterPage from "../pages/RegisterPage";
 
 describe("user auth test suite", () => {
   beforeEach(() => {
@@ -7,11 +9,6 @@ describe("user auth test suite", () => {
   });
 
   it("login with valid credentials", () => {
-    // cy.get("#forms").click();
-    // cy.get('a[href="login.html"]').click();
-    // cy.get("#email").type("admin@admin.com");
-    // cy.get("#password").type("admin123");
-    // cy.get("#submitLoginBtn").click();
     cy.login('admin@admin.com','admin123');
     cy.get("#message").should("be.visible");
     cy.get("#message").should(
@@ -25,11 +22,6 @@ describe("user auth test suite", () => {
   });
 
   it("login with invalid credentials", () => {
-    // cy.get("#forms").click();
-    // cy.get('a[href="login.html"]').click();
-    // cy.get("#email").type("admin@admin.com");
-    // cy.get("#password").type("admin1233!!");
-    // cy.get("#submitLoginBtn").click();
     cy.login('admin@admin.com','parolagresita');
     cy.get("#message").should("be.visible");
     cy.get("#message").should("contain", "Bad credentials!"); // comanda 1
@@ -42,18 +34,18 @@ describe("user auth test suite", () => {
   it("register user", () => {
     const randomLastName = faker.person.lastName();
 
-    cy.get("#forms").click();
-    cy.get("#register").click();
-    cy.get("#firstName").type(faker.person.firstName());
-    cy.get("#lastName").type(randomLastName);
-    cy.get("#phone").type("0722000123");
-    cy.get("#countries_dropdown_menu").select("Romania");
-    cy.get("#emailAddress").type(
+    LeftSideMenuPage.getForm().click();
+    LeftSideMenuPage.getRegisterFormLink().click();
+    RegisterPage.getFirstName().type(faker.person.firstName());
+    RegisterPage.getLastName().type(randomLastName);
+    RegisterPage.getPhone().type("0722000123");
+    RegisterPage.getSelectCountry('Australia');
+    RegisterPage.getEmail().type(
       faker.internet.email({ firstName: "matei", lastName: randomLastName })
     );
-    cy.get("#password").type("test123");
-    cy.get("#exampleCheck1").click();
-    cy.get("#registerBtn").click();
+    RegisterPage.getPassword().type("test123");
+    RegisterPage.getTermsAndConsCheckbox().click();
+    RegisterPage.getRegisterBtn().click();
     cy.get("#message").should(
       "contain",
       "The account has been successfully created!"
